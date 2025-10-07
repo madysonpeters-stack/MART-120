@@ -1,0 +1,24 @@
+
+  <html>
+  <head>
+    <title>Homepage</title>
+  </head>
+  <body>
+    <h1>Homepage<h1>
+    <h2>My Favorite Activities</h2>
+      <ul>
+        <li>Hiking
+        <li>Hanging out with my cat.
+        <li>Shopping
+<h2>My Favorite Restaraunts</h2>
+       <ul>
+         <li><a href="https://www.gildbrewing.com/">Gild</a>
+         <li><a href="https://www.thecaminomissoula.com/">The Camino</a>
+         <li><a href="https://tophatlounge.com/">TopHat</a>
+   <p><a href="hw6:2">Page 2</a></p>
+        <p><a href="hw6:3">Contact Us Page</a></p>
+
+   
+  </body>
+  </html>
+      
