@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title> Page 3</title>
+  </head>
+  <body>
+    <h1> Contact Us</h1>
+     <form action="nextPage.html" type="Post">
+    Name: <input type="text" id="Name"><br>
+    Email: <input type="text" id="email"><br>
+    <!-- add another input box -->
+    Do you accept the terms of use?
+<br />
+       
+     <input type="radio" name="Terms" value="Accept">Accept<br>
+<input type="radio" name="Terms" value="Deny">Deny<br>
+        <button id="mySubmit" type="button">Submit</button>
+  </form>
+    <p><a href="homework6.html">Home Page</a></p>
+        <p><a href="hw6:2.html">Page 2</a></p>
