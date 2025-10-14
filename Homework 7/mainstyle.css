@@ -1,0 +1,14 @@
+span{
+    color:white;
+    background-color:hotpink;
+}
+ .blueColor{
+        color:rgb(48, 139, 219);
+        font-family:arial;
+        font-size:24px;
+    }
+#specificLink {
+  color: rgb(126, 126, 102);
+  font-family: arial;
+  font-size: 28px;
+}
