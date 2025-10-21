@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Loops</title>
+  <script>
+    var actualAnswer;
+    var number1;
+    var number2;
+    var totalQuestions = 0;
+    var correctAnswers = 0;
+
+    function printQuestion() {
+      number1 = Math.floor(Math.random() * 10);
+      number2 = Math.floor(Math.random() * 10);
+      actualAnswer = number1 + number2;
+      document.getElementById("theQuestion").innerHTML = "What is " + number1 + " + " + number2 + "?";
+      document.getElementById("txtAnswer").value = "";
+    }
+
+    function checkAnswer() {
+      var answer = document.getElementById("txtAnswer").value;
+      totalQuestions++;
+      if (parseInt(answer) === actualAnswer) {
+        correctAnswers++;
+        document.getElementById("finalResult").innerHTML = "Good job!";
+      } else {
+        document.getElementById("finalResult").innerHTML = "Try Again!";
+      }
+
+      var percentage = ((correctAnswers / totalQuestions) * 100).toFixed(1);
+      document.getElementById("score").innerHTML =
+        "Score: " + correctAnswers + " / " + totalQuestions + " (" + percentage + "%)";
+      printQuestion();
+    }
+
+    function runGame() {
+      document.getElementById("message").innerHTML = "<h2>Game</h2>";
+      printQuestion();
+    }
+  </script>
+</head>
+
+<body onload="runGame();">
+  <table>
+    <tr>
+      <td colspan="2">
+        <div id="message"></div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><hr></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div id="theQuestion"></div>
+      </td>
+    </tr>
+    <tr>
+      <td>Your answer</td>
+      <td><input type="text" id="txtAnswer"></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button id="btnSubmit" onclick="checkAnswer();">Submit</button>
+      </td>
+    </tr>
+  </table>
+  <div id="finalResult"></div>
+  <div id="score" style="margin-top:10px; font-weight:bold;"></div>
+</body>
+</html>
