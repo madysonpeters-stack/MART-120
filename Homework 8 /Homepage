@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Homepage</title>
+     <link rel="stylesheet" type="text/css" href="Mainstyle.css">
+
+  </head>
+  <body>
+    <h1>Homepage<h1>
+    <span>My Favorite Activities</span>
+      <ul>
+       <li>Hiking
+        <li>Hanging out with my cat.
+        <li>Shopping
+    <br/>
+      </ul>
+      <br/>
+      <br/>
+<h2>My Favorite Restaraunts</h2>
+       <ul>
+         <li><a href="https://www.gildbrewing.com/" style="color: rgb(121, 149, 8);">Gild</a>
+         <li><a href="https://www.thecaminomissoula.com/" style="color: brown;">The Camino</a>
+         <li><a href="https://tophatlounge.com/" style="color: rgb(229, 147, 39);">TopHat</a>
+            <br/>
+   <p><a href="hw6/2.html" id="specificLink" target="_new">Page 2</a></p>
+        <p><a href="hw6/3.html" id="specificLink" target="_new" >Contact Us Page</a></p>
+         <p><a href="Game.html" id="specificLink" target="_new" >Game</a></p>
+   
+  </body>
+  </html>
+      
