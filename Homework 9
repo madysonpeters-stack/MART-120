@@ -1,0 +1,23 @@
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+   background(220,210,195);
+    circle(200,200,200);
+ ellipse(255,175,20,20);
+  ellipse(145,175,20,20);
+   triangle(185, 225, 200, 185, 215, 225);
+     line(150, 100, 250, 100);
+    line(150, 100, 75, 300);
+    line(250, 100, 300, 300);
+    point(255, 175);
+    point(145, 175);
+    rect(175,250,50,25);
+  // Text
+   textSize(10);
+  text('Mady Peters', 170, 350);
+   textSize(32);
+  text('Self Portrait', 110, 80);
+
+}
