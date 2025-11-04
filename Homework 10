@@ -1,0 +1,74 @@
+let eyeX1 = 145;
+let eyeX2 = 255;
+let eyeSpeed1, eyeSpeed2;
+
+let lineY1 = 100;
+let lineY2 = 300;
+let lineSpeed1, lineSpeed2;
+
+let mouthX = 175;
+let mouthY = 250;
+let mouthSpeedX, mouthSpeedY;
+
+let titleSize = 32;
+let grow = true;
+let growCount = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  // random speeds 
+  eyeSpeed1 = random(0.5, 2);
+  eyeSpeed2 = random(1, 2.5);
+  lineSpeed1 = random(0.5, 1.5);
+  lineSpeed2 = random(1, 2);
+  mouthSpeedX = random(0.8, 2);
+  mouthSpeedY = random(0.8, 2);
+}
+
+function draw() {
+  background(220, 210, 195);
+
+  // face
+  circle(200, 200, 200);
+
+  // Eyes(x-axis)
+  ellipse(eyeX2, 175, 20, 20);
+  ellipse(eyeX1, 175, 20, 20);
+  eyeX1 += eyeSpeed1;
+  eyeX2 -= eyeSpeed2;
+  if (eyeX1 < 130 || eyeX1 > 160) eyeSpeed1 *= -1;
+  if (eyeX2 < 240 || eyeX2 > 270) eyeSpeed2 *= -1;
+
+  // Hair lines (y-axis)
+  line(150, lineY1, 250, lineY1);
+  line(150, lineY2, 250, lineY2);
+  lineY1 += lineSpeed1;
+  lineY2 -= lineSpeed2;
+  if (lineY1 < 80 || lineY1 > 120) lineSpeed1 *= -1;
+  if (lineY2 < 280 || lineY2 > 320) lineSpeed2 *= -1;
+
+  // Mouth Diagonally 
+  rect(mouthX, mouthY, 50, 25);
+  mouthX += mouthSpeedX;
+  mouthY += mouthSpeedY;
+  if (mouthX < 170 || mouthX > 190) mouthSpeedX *= -1;
+  if (mouthY < 240 || mouthY > 260) mouthSpeedY *= -1;
+
+  // Title Growing
+  if (frameCount % 10 === 0) {
+    if (grow) titleSize += 2;
+    else titleSize -= 2;
+    growCount++;
+    if (growCount >= 5) {
+      grow = !grow;
+      growCount = 0;
+    }
+  }
+
+  // Text
+  textSize(titleSize);
+  text('Self Portrait', 110, 80);
+  textSize(10);
+  text('Mady Peters', 170, 350);
+}
+
