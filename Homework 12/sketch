@@ -1,0 +1,140 @@
+// Player position 
+var characterX = 100;
+var characterY = 100;
+
+// WASD keys 
+var w = 87;
+var s = 83;
+var a = 65;
+var d = 68;
+
+// Enemy 1
+var shapeX = 50;
+var shapeY = 80;
+var shapeXSpeed;
+var shapeYSpeed;
+
+// Enemy 2
+var shapeX2 = 300;
+var shapeY2 = 200;
+var shapeXSpeed2;
+var shapeYSpeed2;
+
+// Mouse obstacle (only appears once)
+var mouseShapeX;
+var mouseShapeY;
+
+// Colors
+const colors = {
+  bg: "#F7F3E9",
+  border: "#2D3142",
+  player: "#EF8354",
+  enemy1: "#4F5D75",
+  enemy2: "#2E8B57",
+  exitLabel: "#0B6E4F",
+  text: "#1B1B1E"
+};
+
+function setup() {
+  createCanvas(600, 400);
+
+  // random speeds
+  shapeXSpeed = random(1, 4);
+  shapeYSpeed = random(1, 4);
+
+  shapeXSpeed2 = random(1, 4);
+  shapeYSpeed2 = random(1, 4);
+}
+
+function draw() {
+  background(colors.bg);
+
+  // ---- BORDERS ----
+  stroke(colors.border);
+  fill(colors.border);
+
+  rect(0, 0, width, 10);               // top
+  rect(0, 0, 10, height);              // left
+  rect(0, height - 10, width, 10);     // bottom
+  rect(width - 10, 0, 10, height - 60); // right but leaves a gap
+
+  // EXIT LABEL
+  noStroke();
+  fill(colors.exitLabel);
+  textSize(18);
+  text("Exit →", width - 120, height - 20);
+
+  // player
+  fill(colors.player);
+  rect(characterX, characterY, 25, 25);
+
+  // movement (WASD)
+  if (keyIsDown(w)) {
+    characterY -= 5;
+  } else if (keyIsDown(s)) {
+    characterY += 5;
+  }
+
+  if (keyIsDown(a)) {
+    characterX -= 5;
+  }
+  if (keyIsDown(d)) {
+    characterX += 5;
+  }
+
+  //enemy 1
+  fill(colors.enemy1);
+  circle(shapeX, shapeY, 25);
+
+  shapeX += shapeXSpeed;
+  shapeY += shapeYSpeed;
+
+  // Wrap around screen
+  if (shapeX > width)  shapeX = 0;
+  if (shapeX < 0)      shapeX = width;
+  if (shapeY > height) shapeY = 0;
+  if (shapeY < 0)      shapeY = height;
+
+  // enemy 2
+  fill(colors.enemy2);
+  circle(shapeX2, shapeY2, 35);
+
+  shapeXSpeed2 = shapeXSpeed2; 
+  shapeYSpeed2 = shapeYSpeed2;
+
+  shapeX2 += shapeXSpeed2;
+  shapeY2 += shapeYSpeed2;
+
+  // Wrap around screen
+  if (shapeX2 > width)  shapeX2 = 0;
+  if (shapeX2 < 0)      shapeX2 = width;
+  if (shapeY2 > height) shapeY2 = 0;
+  if (shapeY2 < 0)      shapeY2 = height;
+
+  // mouse placed obstacle 
+  if (mouseShapeX !== undefined && mouseShapeY !== undefined) {
+    fill("#788585");
+    circle(mouseShapeX, mouseShapeY, 30);
+  }
+
+  // exit 
+  // Use logical operators: &&
+  if (
+    (characterX + 25 > width - 20) &&
+    (characterY > height - 60) &&
+    (characterY < height - 10)
+  ) {
+    fill(colors.text);
+    textSize(32);
+    text("You Win!", width / 2 - 70, height / 2);
+    noLoop();
+  }
+}
+
+// non-moving obstacle
+function mouseClicked() {
+  if (mouseShapeX === undefined || mouseShapeY === undefined) {
+    mouseShapeX = mouseX;
+    mouseShapeY = mouseY;
+  }
+}
