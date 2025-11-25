@@ -1,0 +1,102 @@
+// Player
+let playerX = 50;
+let playerY = 50;
+let playerSpeed = 3;
+
+// Moving obstacles (arrays)
+let obsX = [];
+let obsY = [];
+let obsSize = [];
+let obsColor = [];
+let obsSpeedX = [];
+let obsSpeedY = [];
+
+const numObstacles = 5;
+
+// Mouse-added obstacle
+let mouseObstacle = null; // {x, y, size}
+
+// Exit Area
+let exitX = 550;
+let exitY = 350;
+let exitSize = 40;
+
+let win = false;
+
+function setup() {
+  createCanvas(600, 400);
+
+  // Create random obstacles
+  for (let i = 0; i < numObstacles; i++) {
+    obsX.push(random(width));
+    obsY.push(random(height));
+    obsSize.push(random(20, 50));
+    obsColor.push(color(random(255), random(255), random(255)));
+    obsSpeedX.push(random(-2, 2));
+    obsSpeedY.push(random(-2, 2));
+  }
+}
+
+function draw() {
+  background(220);
+
+  // Draw & move obstacles
+  for (let i = 0; i < obsX.length; i++) {
+    fill(obsColor[i]);
+    circle(obsX[i], obsY[i], obsSize[i]);
+
+    // Move
+    obsX[i] += obsSpeedX[i];
+    obsY[i] += obsSpeedY[i];
+
+    // Wrap around screen
+    if (obsX[i] > width) obsX[i] = 0;
+    if (obsX[i] < 0) obsX[i] = width;
+    if (obsY[i] > height) obsY[i] = 0;
+    if (obsY[i] < 0) obsY[i] = height;
+  }
+
+  // Draw non-moving mouse obstacle
+  if (mouseObstacle) {
+    fill("purple");
+    circle(mouseObstacle.x, mouseObstacle.y, mouseObstacle.size);
+  }
+
+  // Draw Exit
+  fill("green");
+  rect(exitX, exitY, exitSize, exitSize);
+
+  // Player movement
+  fill("blue");
+  circle(playerX, playerY, 30);
+
+  if (keyIsDown(87)) playerY -= playerSpeed; // W
+  if (keyIsDown(83)) playerY += playerSpeed; // S
+  if (keyIsDown(65)) playerX -= playerSpeed; // A
+  if (keyIsDown(68)) playerX += playerSpeed; // D
+
+  // Win check (NO collision logic needed)
+  if (
+    playerX > exitX &&
+    playerX < exitX + exitSize &&
+    playerY > exitY &&
+    playerY < exitY + exitSize
+  ) {
+    win = true;
+  }
+
+  if (win) {
+    textSize(40);
+    fill(0);
+    text("You Win!", 220, 200);
+  }
+}
+
+function mousePressed() {
+  // Add one stationary obstacle
+  mouseObstacle = {
+    x: mouseX,
+    y: mouseY,
+    size: 40
+  };
+}
