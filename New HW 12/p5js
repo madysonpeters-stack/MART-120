@@ -1,0 +1,162 @@
+// Player
+let characterX = 100;
+let characterY = 100;
+
+// Keys
+const w = 87;
+const s = 83;
+const a = 65;
+const d = 68;
+
+// Obstacles (2)
+let obs1 = { x: 30,  y: 50,  size: 20,  speedX: 0, speedY: 0, color: "#4F5D75" };
+let obs2 = { x: 200, y: 250, size: 35,  speedX: 0, speedY: 0, color: "#0B6E4F" };
+
+// Mouse-added obstacle
+let mouseObjX;
+let mouseObjY;
+
+// Palette
+const colors = {
+  bg: "#F7F3E9",
+  border: "#2D3142",
+  player: "#EF8354",
+  text: "#1B1B1E",
+  exitLabel: "#0B6E4F"
+};
+
+// ----------------------------
+// Setup
+// ----------------------------
+function setup() {
+  createCanvas(600, 400);
+  randomizeObstacleSpeed(obs1);
+  randomizeObstacleSpeed(obs2);
+}
+
+// ----------------------------
+// Draw (ONLY CALLS FUNCTIONS)
+// ----------------------------
+function draw() {
+  background(colors.bg);
+
+  drawBorders();
+  drawExit();
+  createPlayer();
+  movePlayer();
+  
+  drawObstacles();
+  moveObstacle1();
+  moveObstacle2();
+
+  drawMouseObject();
+  checkWinCondition();
+}
+
+// ----------------------------
+// Functions
+// ----------------------------
+
+// Create Player
+function createPlayer() {
+  fill(colors.player);
+  rect(characterX, characterY, 25, 25);
+}
+
+// Move Player
+function movePlayer() {
+  if (keyIsDown(w)) characterY -= 5;
+  if (keyIsDown(s)) characterY += 5;
+  if (keyIsDown(a)) characterX -= 5;
+  if (keyIsDown(d)) characterX += 5;
+}
+
+// Draw object when clicking mouse
+function drawMouseObject() {
+  if (mouseObjX !== undefined && mouseObjY !== undefined) {
+    fill("#788585");
+    circle(mouseObjX, mouseObjY, 25);
+  }
+}
+
+// Create MULTIPLE obstacles
+function drawObstacles() {
+  fill(obs1.color);
+  circle(obs1.x, obs1.y, obs1.size);
+
+  fill(obs2.color);
+  circle(obs2.x, obs2.y, obs2.size);
+}
+
+// Move obstacle 1
+function moveObstacle1() {
+  obs1.x += obs1.speedX;
+  obs1.y += obs1.speedY;
+
+  wrapAroundScreen(obs1);
+}
+
+// Move obstacle 2
+function moveObstacle2() {
+  obs2.x += obs2.speedX;
+  obs2.y += obs2.speedY;
+
+  wrapAroundScreen(obs2);
+}
+
+// Helper: wraparound
+function wrapAroundScreen(obj) {
+  if (obj.x > width)  obj.x = 0;
+  if (obj.x < 0)      obj.x = width;
+  if (obj.y > height) obj.y = 0;
+  if (obj.y < 0)      obj.y = height;
+}
+
+// Helper: random speed
+function randomizeObstacleSpeed(obj) {
+  obj.speedX = random(1, 4);
+  obj.speedY = random(1, 4);
+}
+
+// Border function
+function drawBorders() {
+  fill(colors.border);
+  noStroke();
+
+  rect(0, 0, width, 10);          // top
+  rect(0, 0, 10, height);         // left
+  rect(0, height - 10, width, 10); // bottom
+  rect(width - 10, 0, 10, height - 60); // right except exit gap
+}
+
+// Exit
+function drawExit() {
+  fill(colors.exitLabel);
+  textSize(16);
+  text("Exit →", width - 120, height - 20);
+}
+
+// Win message
+function displayWinMessage() {
+  fill(colors.text);
+  textSize(32);
+  text("You Win!", width / 2 - 70, height / 2);
+}
+
+// Check win condition
+function checkWinCondition() {
+  if (
+    characterX + 25 > width - 20 &&
+    characterY + 25 > height - 60 &&
+    characterY < height - 10
+  ) {
+    displayWinMessage();
+    noLoop();
+  }
+}
+
+// Mouse click function
+function mousePressed() {
+  mouseObjX = mouseX;
+  mouseObjY = mouseY;
+}
